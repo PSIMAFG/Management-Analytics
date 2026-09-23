@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fee-receipt-reader"
+version = "1.0.0"
+description = "Lectura en lote de boletas de honorarios electrónicas (PDF o imagen) con OCR, validación de montos y retenciones, revisión manual e informes por programa y período."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+dependencies = [
+    "PySide6>=6.8,<7",
+    "matplotlib>=3.9,<4",
+    "openpyxl>=3.1,<4",
+    "rapidocr>=3.4,<4",
+    "onnxruntime>=1.19,<2",
+    "pypdfium2>=4.30,<6",
+    "Pillow>=10.4,<13",
+    "reportlab>=4.2,<6",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8,<10",
+    "ruff>=0.6,<1",
+]
+build = [
+    "pyinstaller>=6.10,<7",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+receipt_reader = ["data/*.sql"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+src = ["src", "tests"]
+extend-exclude = ["build", "dist", ".venv"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "N", "UP", "B", "SIM", "ANN", "RUF", "T20", "PTH", "C4", "RET", "PIE", "ARG"]
+ignore = ["ANN401"]
+allowed-confusables = ["×", "–"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/receipt_reader/ui/*" = ["N802"]
