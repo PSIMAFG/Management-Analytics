@@ -13,6 +13,8 @@ Todos los datos incluidos son sintéticos y se generan de forma reproducible con
 | [Monitor de indicadores multisede](kpi-monitor/) | Seguir 24 indicadores en 5 sedes contra sus metas, con avance mensual y acumulado, proyección al cierre y reporte ejecutivo. | Definición declarativa de indicadores, reglas de meta, semáforo, índice ponderado, proyección con bootstrap. |
 | [Lector de boletas de honorarios](fee-receipt-reader/) | Registrar en lote boletas de honorarios en PDF o imagen, validar sus montos y producir informes por programa y período. | OCR con RapidOCR, reconstrucción de líneas, validación de RUT y de la tripleta bruto, retención y líquido. |
 
+Cada proyecto incluye una guía visual en PDF (`docs/guia_visual.pdf`) que muestra todas las pestañas de su interfaz con datos de demostración.
+
 ## Stack común
 
 - Python 3.11 o superior.

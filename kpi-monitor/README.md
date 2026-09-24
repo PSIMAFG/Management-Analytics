@@ -2,6 +2,8 @@
 
 Aplicación de escritorio para hacer seguimiento a los indicadores de gestión de una organización con varias sedes: cuánto lleva cada indicador respecto de su meta anual, si la sede o la red van a cumplir al cierre del año, qué sedes explican la brecha, y un reporte ejecutivo listo para compartir.
 
+Guía visual de la interfaz, pestaña por pestaña: [docs/guia_visual.pdf](docs/guia_visual.pdf).
+
 ## Problema que resuelve
 
 Una organización con varias sedes compromete un conjunto de indicadores de gestión con metas anuales (algunas fijas, otras que crecen con el tiempo, otras por tramos). Cada mes llegan observaciones por sede. La jefatura necesita, a cualquier mes de corte, una lectura consolidada: cómo va cada indicador en cada sede y en la red completa, si el año se va a cerrar en meta, cuáles son las alertas que requieren atención, y un reporte para la toma de decisiones. Calcular esto a mano con planillas es lento y propenso a errores de agregación (sumar porcentajes en vez de razones, sumar un stock en vez de tomar el último corte, prorratear una meta que no debería prorratearse, etc.).

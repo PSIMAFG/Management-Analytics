@@ -8,6 +8,8 @@ cantidad de demanda posible y, dentro de eso, la de mejor calidad según el
 escenario elegido (preferencias de sala, continuidad, metas por persona,
 mezcla de tipos de atención).
 
+Guía visual de la interfaz, pestaña por pestaña: [docs/guia_visual.pdf](docs/guia_visual.pdf).
+
 ## Problema que resuelve
 
 Programar manualmente los turnos de un equipo de varios cargos, con

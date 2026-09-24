@@ -5,6 +5,8 @@ electrónicas en PDF o imagen, extrae sus datos con lectura de texto nativo u OC
 montos y retenciones contra la ley y los parámetros del usuario, ofrece una cola de
 revisión manual para lo que no cuadra, y genera informes en Excel por programa y período.
 
+Guía visual de la interfaz, pestaña por pestaña: [docs/guia_visual.pdf](docs/guia_visual.pdf).
+
 ## Problema que resuelve
 
 Una unidad administrativa recibe cada mes decenas de boletas de honorarios de
