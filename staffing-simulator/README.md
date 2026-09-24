@@ -2,6 +2,8 @@
 
 Aplicación de escritorio para planificar el gasto anual de la dotación y de los otros gastos de una organización multisede según escenarios de contratación, contra la estructura financiera de cada programa (convenio) y, a medida que avanza el año, contra lo efectivamente ejecutado.
 
+Guía visual de la interfaz, pestaña por pestaña: [docs/guia_visual.pdf](docs/guia_visual.pdf).
+
 ![Posiciones del escenario](docs/img/01_posiciones.png)
 
 ## Problema que resuelve
