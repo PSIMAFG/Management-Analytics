@@ -178,15 +178,21 @@ Sea $VH$ el valor hora de honorarios, $h_s$ las horas semanales, $h_m$ las horas
 
 Honorarios con jornada semanal (costo para la organización = bruto):
 
-$$B = VH \cdot h_s \cdot s$$
+```math
+B = VH \cdot h_s \cdot s
+```
 
 Honorarios por horas (las horas mensuales estimadas son obligatorias para este tipo):
 
-$$B = VH \cdot h_m$$
+```math
+B = VH \cdot h_m
+```
 
 Plazo fijo y planta, con sueldo del grado 15 vigente (con reajustes) $S_{15}$ y aporte del empleador $c$ del tipo de contrato y del año:
 
-$$R = S_{15} \cdot \frac{h_s}{J} \qquad \text{Costo} = R + \operatorname{redondeo}(R \cdot c)$$
+```math
+R = S_{15} \cdot \frac{h_s}{J} \qquad \text{Costo} = R + \operatorname{redondeo}(R \cdot c)
+```
 
 Con $VH = 10.000$, una jornada honoraria de 44 h da un bruto mensual de 1.760.000 pesos; con $S_{15} = 1.180.000$ (categoría profesional, escala 2026 de los datos de ejemplo), la remuneración de plazo fijo o planta a la misma jornada completa es 1.180.000 pesos, sin relación con el valor hora de honorarios.
 
@@ -199,9 +205,11 @@ Una posición cuesta en los meses que intersectan su vigencia. Un término vací
 
 En honorarios con jornada semanal, la proporción se calcula con un calendario real día a día: la jornada se reparte de lunes a viernes (44 h queda como 9, 9, 9, 9 y 8 h) y se cuentan las horas programadas de cada día del mes, sin columnas fijas por semana, de modo que los meses que tocan seis semanas calendario se cuentan completos.
 
-$$B_{\text{mes}} = B \cdot \frac{H_{\text{vigente}}}{H_{\text{mes}}}$$
+```math
+B_{\text{mes}} = B \cdot \frac{H_{\text{vigente}}}{H_{\text{mes}}}
+```
 
-donde $H_{\text{mes}}$ son las horas programadas del mes y $H_{\text{vigente}}$ las que caen dentro de la vigencia. Por ejemplo, con 44 h semanales marzo de 2026 tiene 194 h programadas; una posición que ingresa el lunes 9 tiene 150 h vigentes y cobra $1.760.000 \cdot 150 / 194 = 1.360.825$ pesos. Se usa esta fracción y no la resta $B - VH \cdot H_{\text{fuera}}$ porque la resta mezcla la convención de cuatro semanas (176 h al mes para 44 h) con horas de calendario (entre 176 y 203 h en 2026): con ella, un ingreso en la última semana de un mes largo podría costar 0 y dividir una posición en dos tramos cambiaría su costo. Con la fracción, un tramo con horas vigentes nunca cuesta 0 y dos tramos consecutivos suman exactamente lo mismo que la posición entera.
+donde $`H_{\text{mes}}`$ son las horas programadas del mes y $`H_{\text{vigente}}`$ las que caen dentro de la vigencia. Por ejemplo, con 44 h semanales marzo de 2026 tiene 194 h programadas; una posición que ingresa el lunes 9 tiene 150 h vigentes y cobra $`1.760.000 \cdot 150 / 194 = 1.360.825`$ pesos. Se usa esta fracción y no la resta $`B - VH \cdot H_{\text{fuera}}`$ porque la resta mezcla la convención de cuatro semanas (176 h al mes para 44 h) con horas de calendario (entre 176 y 203 h en 2026): con ella, un ingreso en la última semana de un mes largo podría costar 0 y dividir una posición en dos tramos cambiaría su costo. Con la fracción, un tramo con horas vigentes nunca cuesta 0 y dos tramos consecutivos suman exactamente lo mismo que la posición entera.
 
 En honorarios por horas la proporción es la de días hábiles (lunes a viernes) vigentes sobre los del mes, y en plazo fijo y planta la de días corridos vigentes sobre los días del mes. Los feriados no se descuentan: cuentan como horas programadas.
 
@@ -209,13 +217,15 @@ En honorarios por horas la proporción es la de días hábiles (lunes a viernes)
 
 El ausentismo $a$ es un supuesto del escenario (porcentaje de las horas contratadas del mes, entre 0 y 50 %). En honorarios cada hora no trabajada se descuenta al valor hora, con el pago acotado entre 0 y el bruto:
 
-$$h_{nt} = a \cdot h_c \qquad \text{Pago} = \min\left(B_{\text{mes}},\ \max\left(B_{\text{mes}} - VH \cdot h_{nt},\ 0\right)\right)$$
+```math
+h_{nt} = a \cdot h_c \qquad \text{Pago} = \min\left(B_{\text{mes}},\ \max\left(B_{\text{mes}} - VH \cdot h_{nt},\ 0\right)\right)
+```
 
-donde $h_c$ son las horas contratadas del mes ($h_s \cdot s$ prorrateadas, o $h_m$). Con 3 % de ausentismo, una jornada de 44 h descuenta 5,28 h al mes. En plazo fijo y planta el ausentismo no reduce el costo.
+donde $h_c$ son las horas contratadas del mes ($`h_s \cdot s`$ prorrateadas, o $h_m$). Con 3 % de ausentismo, una jornada de 44 h descuenta 5,28 h al mes. En plazo fijo y planta el ausentismo no reduce el costo.
 
 ### Retención de honorarios
 
-La retención no cambia el costo para la organización: se informa aparte como $r = \operatorname{redondeo}(\text{Pago} \cdot t)$, y el líquido estimado es $\text{Pago} - r$, con $t$ la tasa legal del año, que es un dato público editable: 2020 10,75 %, 2021 11,5 %, 2022 12,25 %, 2023 13 %, 2024 13,75 %, 2025 14,5 %, 2026 15,25 %, 2027 16 % y 17 % desde 2028. Una convención permite tomar la tasa del año del servicio (por defecto) o la del año del pago, en cuyo caso diciembre, que se paga en enero, usa la tasa del año siguiente. Plazo fijo y planta no tienen retención.
+La retención no cambia el costo para la organización: se informa aparte como $`r = \operatorname{redondeo}(\text{Pago} \cdot t)`$, y el líquido estimado es $`\text{Pago} - r`$, con $t$ la tasa legal del año, que es un dato público editable: 2020 10,75 %, 2021 11,5 %, 2022 12,25 %, 2023 13 %, 2024 13,75 %, 2025 14,5 %, 2026 15,25 %, 2027 16 % y 17 % desde 2028. Una convención permite tomar la tasa del año del servicio (por defecto) o la del año del pago, en cuyo caso diciembre, que se paga en enero, usa la tasa del año siguiente. Plazo fijo y planta no tienen retención.
 
 ### Redondeo y totales
 
@@ -236,15 +246,19 @@ Se advierte sin bloquear cuando la suma de horas semanales de una persona, en to
 
 Cada programa tiene, por año, un monto total de convenio (`program_budget`, con vigencia y una referencia de texto opcional) e ítems presupuestarios (`budget_item`) de recurso humano, operación, inversión u otro. Cada posición se imputa a un ítem de recurso humano de su programa (el primero, por defecto); cada otro gasto se imputa a un ítem que no sea de recurso humano.
 
-$$\text{Planificado} = \text{Costo de recurso humano} + \text{Otros gastos} \qquad \text{Saldo} = \text{Asignado} - \text{Planificado} \qquad \text{Uso} = \frac{\text{Planificado}}{\text{Asignado}}$$
+```math
+\text{Planificado} = \text{Costo de recurso humano} + \text{Otros gastos} \qquad \text{Saldo} = \text{Asignado} - \text{Planificado} \qquad \text{Uso} = \frac{\text{Planificado}}{\text{Asignado}}
+```
 
 La pestaña Estructura del programa avisa (sin bloquear) cuando la suma de los ítems de un programa no coincide con el monto total de su convenio.
 
-$$\text{Diferencia de ejecución} = E - P \qquad \text{Variación} = \frac{E - P}{P}$$
+```math
+\text{Diferencia de ejecución} = E - P \qquad \text{Variación} = \frac{E - P}{P}
+```
 
 Lo planificado ($P$) y lo ejecutado ($E$) se comparan celda a celda (ítem y mes): un mes que un ítem aún no registra no entra en la comparación «a la fecha», y la pantalla y el informe usan la misma definición del acumulado. La ejecución por programa se obtiene sumando la de sus ítems.
 
-En la comparación de escenarios, para cada concepto (total, mes, tipo de contrato o cargo) la diferencia es $X - X_{\text{base}}$ y la diferencia porcentual $(X - X_{\text{base}}) / X_{\text{base}}$, que queda vacía si el valor base es 0. Un elemento que no existe en un escenario vale 0 en él.
+En la comparación de escenarios, para cada concepto (total, mes, tipo de contrato o cargo) la diferencia es $`X - X_{\text{base}}`$ y la diferencia porcentual $`(X - X_{\text{base}}) / X_{\text{base}}`$, que queda vacía si el valor base es 0. Un elemento que no existe en un escenario vale 0 en él.
 
 ### Importación y exportación Excel
 

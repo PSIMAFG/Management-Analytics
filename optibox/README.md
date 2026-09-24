@@ -124,13 +124,13 @@ cubierto, de modo que ninguna sesión cae fuera de su vigencia.
 ### Modelo de optimización (etapa 2)
 
 **Conjuntos.** $K$: candidatos generados por la etapa 1 (cada uno con
-persona $p_k$, tipo $s_k$, sala $r_k$, día $d_k$, minutos $[i_k, i_k+\Delta_k)$).
+persona $p_k$, tipo $s_k$, sala $r_k$, día $d_k$, minutos $`[i_k, i_k+\Delta_k)`$).
 $P$: personal asistencial. $D$: días hábiles de la semana. $T$: slots de 15
 minutos del horario abierto de cada día.
 
 **Variables.**
-$x_k \in \{0,1\}$ para cada candidato $k \in K$ (se asigna la sesión).
-$a_{p,d,t} \in \{0,1\}$ para cada persona asistencial $p$, día $d$ y slot
+$`x_k \in \{0,1\}`$ para cada candidato $`k \in K`$ (se asigna la sesión).
+$`a_{p,d,t} \in \{0,1\}`$ para cada persona asistencial $p$, día $d$ y slot
 $t$ en que $p$ puede trabajar (tramo administrativo).
 
 **Restricciones duras.**
@@ -138,37 +138,51 @@ $t$ en que $p$ puede trabajar (tramo administrativo).
 Una sola cosa por persona y slot (una sesión que cubre $t$ o administrativo,
 nunca ambas):
 
-$$\sum_{k \in K:\, p_k=p,\, t \in [i_k, i_k+\Delta_k)} x_k \;+\; a_{p,d,t} \;\le\; 1 \qquad \forall p, d, t$$
+```math
+\sum_{k \in K:\, p_k=p,\, t \in [i_k, i_k+\Delta_k)} x_k \;+\; a_{p,d,t} \;\le\; 1 \qquad \forall p, d, t
+```
 
 Una sesión por sala y slot:
 
-$$\sum_{k \in K:\, r_k=r,\, t \in [i_k, i_k+\Delta_k)} x_k \;\le\; 1 \qquad \forall r, d, t$$
+```math
+\sum_{k \in K:\, r_k=r,\, t \in [i_k, i_k+\Delta_k)} x_k \;\le\; 1 \qquad \forall r, d, t
+```
 
 Capacidad dura de la sala administrativa (si existe):
 
-$$\sum_{p} a_{p,d,t} \;\le\; \text{cap\_dura} \qquad \forall d, t$$
+```math
+\sum_{p} a_{p,d,t} \;\le\; \text{cap\_dura} \qquad \forall d, t
+```
 
 Contrato: minutos de sesiones más administrativo más bloqueos del
 destinatario dentro de su disponibilidad, no superan los minutos
 contratados de la semana (los bloqueos ya se descuentan al construir la
 instancia, quedan implícitos en el minutaje disponible):
 
-$$\sum_{k:\, p_k=p} \Delta_k\, x_k \;+\; 15 \sum_{d,t} a_{p,d,t} \;\le\; \text{minutos\_contrato}(p)$$
+```math
+\sum_{k:\, p_k=p} \Delta_k\, x_k \;+\; 15 \sum_{d,t} a_{p,d,t} \;\le\; \text{minutos\_contrato}(p)
+```
 
 Administrativo asociado: el administrativo colocado el mismo día cubre al
 menos el que exigen las sesiones de ese día, y no supera ese requerido más
 el tope diario adicional configurable:
 
-$$\text{requerido}(p,d) \;\le\; 15 \sum_{t} a_{p,d,t} \;\le\; \text{requerido}(p,d) + \text{extra\_diario}$$
+```math
+\text{requerido}(p,d) \;\le\; 15 \sum_{t} a_{p,d,t} \;\le\; \text{requerido}(p,d) + \text{extra\_diario}
+```
 
 Topes semanales, por persona y por día de cada tipo de atención (los que
 declara el tipo):
 
-$$\sum_{k:\, s_k=s,\ \ldots} x_k \;\le\; \text{tope}(s, \ldots)$$
+```math
+\sum_{k:\, s_k=s,\ \ldots} x_k \;\le\; \text{tope}(s, \ldots)
+```
 
 Cobertura por (día, bloque, tipo) no supera la demanda:
 
-$$\sum_{k:\, d_k=d,\, \text{bloque}(i_k)=b,\, s_k=s} x_k \;\le\; \text{demanda}(d,b,s)$$
+```math
+\sum_{k:\, d_k=d,\, \text{bloque}(i_k)=b,\, s_k=s} x_k \;\le\; \text{demanda}(d,b,s)
+```
 
 **Restricciones y objetivo blandos (fase B).** Exceso sobre la capacidad
 blanda de la sala administrativa, desvío de las metas de minutos por
@@ -179,9 +193,13 @@ resta u ordena en el objetivo con el peso que define el escenario.
 
 **Objetivo lexicográfico.**
 
-$$\text{Fase A:}\quad \max \sum_{k \in K} w(s_k)\, x_k \qquad w(\text{alta})=4,\ w(\text{media})=2,\ w(\text{baja})=1$$
+```math
+\text{Fase A:}\quad \max \sum_{k \in K} w(s_k)\, x_k \qquad w(\text{alta})=4,\ w(\text{media})=2,\ w(\text{baja})=1
+```
 
-$$\text{Fase B:}\quad \sum_{k} w(s_k) x_k \;\ge\; \Big\lceil \text{piso}\% \cdot z_A \Big\rceil, \qquad \max\ \text{calidad(escenario)}$$
+```math
+\text{Fase B:}\quad \sum_{k} w(s_k) x_k \;\ge\; \Big\lceil \text{piso}\% \cdot z_A \Big\rceil, \qquad \max\ \text{calidad(escenario)}
+```
 
 donde $z_A$ es el valor óptimo (o el mejor encontrado) de la fase A y
 `piso` es `coverage_floor_pct` del escenario (100 % por defecto: no se
@@ -200,14 +218,14 @@ Para una persona:
 - **Jornada programada**: minutos dentro de sus ventanas de disponibilidad
   y del horario abierto del centro, sin almuerzo. Los feriados no son
   jornada.
-- **Tiempo contratado disponible** = $\min(\text{jornada programada},\ \text{minutos de contrato})$:
+- **Tiempo contratado disponible** = $`\min(\text{jornada programada},\ \text{minutos de contrato})`$:
   si la disponibilidad supera el contrato, ese exceso no se considera
   ocioso.
 - **Permisos** (ausencias aprobadas dentro de la jornada programada): no
   son ociosos ni productivos, se informan y se descuentan aparte.
 - **Horas productivas** = atención + administrativo + reuniones y
   bloqueos. **Horas productivas clínicas** = solo atención.
-- **Horas ociosas** = $\max(0,\ \text{tiempo contratado disponible} - \text{permisos} - \text{productivas})$.
+- **Horas ociosas** = $`\max(0,\ \text{tiempo contratado disponible} - \text{permisos} - \text{productivas})`$.
 - Indicadores: % productivo = productivas / (tiempo contratado disponible
   − permisos); % productivo clínico = atención / (tiempo contratado
   disponible − permisos); % ocioso = ociosas / (tiempo contratado
