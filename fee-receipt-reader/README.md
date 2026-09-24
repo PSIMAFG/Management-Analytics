@@ -154,10 +154,12 @@ edite los parámetros.
 
 **Tripleta de montos.** Con tasa legal $t$ del año de emisión, la retención esperada es
 
-$$\text{retención} = \operatorname{redondeo}(\text{bruto} \times t)$$
+```math
+\text{retención} = \operatorname{redondeo}(\text{bruto} \times t)
+```
 
 con una tolerancia configurable (1 peso por defecto), y el líquido debe cumplir
-$\text{líquido} = \text{bruto} - \text{retención}$. El bruto nunca se calcula a partir
+$`\text{líquido} = \text{bruto} - \text{retención}`$. El bruto nunca se calcula a partir
 de otros campos: sin bruto leído, la boleta queda pendiente. Si falta la retención o el
 líquido (pero no ambos), el que falta se deduce de la identidad y queda marcado con una
 advertencia de "monto deducido".
